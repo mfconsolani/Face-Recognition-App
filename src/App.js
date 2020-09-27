@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Navigation from './components/Navigation/Navigation';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
+import SignIn from './components/SignIn/SignIn';
 import Logo from './components/Logo/Logo';
 import Rank from './components/Rank/Rank';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
@@ -9,7 +10,7 @@ import './App.css';
 import Clarifai from 'clarifai';
 
 const app = new Clarifai.App({
- apiKey: '2de802196a2e463ca68840abbbf032b2'
+  apiKey: '2de802196a2e463ca68840abbbf032b2'
 });
 
 // const particlesOptions = {
@@ -38,6 +39,7 @@ class App extends Component {
       input: '',
       imageURL: '',
       box: {},
+      route: 'signin',
     }
   }
 
@@ -56,15 +58,15 @@ class App extends Component {
 
   displayFaceBox = (box) => {
     console.log(box);
-    this.setState({ box:box });
+    this.setState({ box: box });
   }
 
   onInputChange = (event) => {
-    this.setState({input: event.target.value});
+    this.setState({ input: event.target.value });
   }
 
   onButtonSubmit = () => {
-    this.setState({imageURL: this.state.input });
+    this.setState({ imageURL: this.state.input });
     app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
       .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
       .catch(err => console.log(err));
@@ -73,18 +75,23 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      {/* <Particles className="particles" params={particlesOptions} /> */}
+        {/* <Particles className="particles" params={particlesOptions} /> */}
         <Navigation />
-        <Logo />
-        <Rank />
-        <ImageLinkForm 
-          onInputChange={this.onInputChange} 
-          onButtonSubmit={this.onButtonSubmit}
-        />
-        <FaceRecognition
-          box={this.state.box} 
-          imageURL={this.state.imageURL}
-        />
+        { this.state.route === 'signin'
+          ? <SignIn />
+          : <div>
+              <Logo />
+              <Rank />
+              <ImageLinkForm 
+                onInputChange={this.onInputChange} 
+                onButtonSubmit={this.onButtonSubmit}
+              />
+              <FaceRecognition
+                box={this.state.box} 
+                imageURL={this.state.imageURL}
+              />
+          </div>
+        }
       </div>
     );
   }
@@ -93,4 +100,3 @@ class App extends Component {
 export default App;
 
 
- 
