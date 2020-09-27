@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import Navigation from './components/Navigation/Navigation';
+import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Logo from './components/Logo/Logo';
 import Rank from './components/Rank/Rank';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 // import Particles from 'react-particles-js';
 import './App.css';
-import Clarifai from 'clarifai';
+// import Clarifai from 'clarifai';
 
-const app = new Clarifai.App({
- apiKey: '2de802196a2e463ca68840abbbf032b2'
-});
+// const app = new Clarifai.App({
+//  apiKey: '2de802196a2e463ca68840abbbf032b2'
+// });
 
 // const particlesOptions = {
 //     "particles": {
@@ -44,13 +45,13 @@ class App extends Component {
 
   onButtonSubmit = () => {
     console.log('click');
-    app.models.initModel({id: Clarifai.GENERAL_MODEL, version: "aa7f35c01e0642fda5cf400f543e7c40"})
-      .then(generalModel => {
-        return generalModel.predict("@@sampleTrain");
-      })
-      .then(response => {
-        var concepts = response['outputs'][0]['data']['concepts']
-      })
+    // app.models.initModel({id: "Clarifai.GENERAL_MODEL", version: "aa7f35c01e0642fda5cf400f543e7c40"})
+    //   .then(generalModel => {
+    //     return generalModel.predict("@@sampleTrain");
+    //   })
+    //   .then(response => {
+    //     var concepts = response['outputs'][0]['data']['concepts']
+    //   })
   }
 
   render() {
@@ -64,7 +65,7 @@ class App extends Component {
           onInputChange={this.onInputChange} 
           onButtonSubmit={this.onButtonSubmit}
         />
-        {/* <FaceRecognition /> */}
+        <FaceRecognition />
       </div>
     );
   }
