@@ -6,11 +6,11 @@ import Rank from './components/Rank/Rank';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 // import Particles from 'react-particles-js';
 import './App.css';
-// import Clarifai from 'clarifai';
+import Clarifai from 'clarifai';
 
-// const app = new Clarifai.App({
-//  apiKey: '2de802196a2e463ca68840abbbf032b2'
-// });
+const app = new Clarifai.App({
+ apiKey: '2de802196a2e463ca68840abbbf032b2'
+});
 
 // const particlesOptions = {
 //     "particles": {
@@ -36,22 +36,24 @@ class App extends Component {
     super();
     this.state = {
       input: '',
+      imageURL: '',
     }
   }
 
   onInputChange = (event) => {
-    console.log(event.target.value);
+    this.setState({input: event.target.value});
   }
 
   onButtonSubmit = () => {
-    console.log('click');
-    // app.models.initModel({id: "Clarifai.GENERAL_MODEL", version: "aa7f35c01e0642fda5cf400f543e7c40"})
-    //   .then(generalModel => {
-    //     return generalModel.predict("@@sampleTrain");
-    //   })
-    //   .then(response => {
-    //     var concepts = response['outputs'][0]['data']['concepts']
-    //   })
+    this.setState({imageURL: this.state.input });
+    app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+      // .then(generalModel => {
+      //   return generalModel.predict("https://source.unsplash.com/300x500");
+      // })
+      .then(response => {
+        console.log(response['outputs'][0]['data']['regions'][0]['region_info'].bounding_box);
+        // var concepts = response['outputs'][0]['data']['concepts']
+      })
   }
 
   render() {
@@ -65,7 +67,9 @@ class App extends Component {
           onInputChange={this.onInputChange} 
           onButtonSubmit={this.onButtonSubmit}
         />
-        <FaceRecognition />
+        <FaceRecognition 
+          imageURL={this.state.imageURL}
+        />
       </div>
     );
   }
