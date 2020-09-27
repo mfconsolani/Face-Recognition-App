@@ -37,7 +37,12 @@ class App extends Component {
     this.state = {
       input: '',
       imageURL: '',
+      box: {},
     }
+  }
+
+  calculateFaceLocation = (data) => {
+
   }
 
   onInputChange = (event) => {
@@ -47,12 +52,9 @@ class App extends Component {
   onButtonSubmit = () => {
     this.setState({imageURL: this.state.input });
     app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
-      // .then(generalModel => {
-      //   return generalModel.predict("https://source.unsplash.com/300x500");
-      // })
       .then(response => {
-        console.log(response['outputs'][0]['data']['regions'][0]['region_info'].bounding_box);
-        // var concepts = response['outputs'][0]['data']['concepts']
+        this.calculateFaceLocation(response);
+        // console.log(response['outputs'][0]['data']['regions'][0]['region_info'].bounding_box);
       })
   }
 
