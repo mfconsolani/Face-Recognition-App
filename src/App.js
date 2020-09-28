@@ -94,8 +94,7 @@ class App extends Component {
                 box={box} 
                 imageURL={imageURL}
               />
-            </div>
-           
+            </div>           
           : ( route === 'signin'
             ? <SignIn onRouteChange={this.onRouteChange} />
             : <Register onRouteChange={this.onRouteChange} />
