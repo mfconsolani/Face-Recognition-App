@@ -8,11 +8,6 @@ import Rank from './components/Rank/Rank';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Particles from 'react-particles-js';
 import './App.css';
-import Clarifai from 'clarifai';
-
-const app = new Clarifai.App({
-  apiKey: '2de802196a2e463ca68840abbbf032b2'
-});
 
 const particlesOptions = {
     "particles": {
@@ -81,7 +76,14 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({ imageURL: this.state.input });
-    app.models.predict('c0c0ac362b03416da06ab3fa36fb58e3', this.state.input) // Clarifai.FACE_DETECT_MODEL
+    fetch('http://localhost:3001/imageurl', {
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            input: this.state.input, 
+        })
+      })
+      .then(response => response.json())    
       .then(response => {
         if (response) {
           fetch('http://localhost:3001/image', {
@@ -101,17 +103,6 @@ class App extends Component {
       })
       .catch(err => console.log(err));
   }
-
-  // const handleApiCall = (req, res) => {
-  //   app.models
-  //     // You may have to do this:
-  //     // .predict(Clarifai.FACE_DETECT_MODEL, req.body.input)
-  //     .predict('c0c0ac362b03416da06ab3fa36fb58e3', req.body.input)
-  //     .then(data => {
-  //       res.json(data);
-  //     })
-  //     .catch(err => res.status(400).json('unable to work with API'))
-  // }
 
   onRouteChange = (route) => {
     if (route === 'signout') {
