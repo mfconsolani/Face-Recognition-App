@@ -81,7 +81,7 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({ imageURL: this.state.input });
-    app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+    app.models.predict('c0c0ac362b03416da06ab3fa36fb58e3', this.state.input) // Clarifai.FACE_DETECT_MODEL
       .then(response => {
         if (response) {
           fetch('http://localhost:3001/image', {
@@ -101,6 +101,17 @@ class App extends Component {
       })
       .catch(err => console.log(err));
   }
+
+  // const handleApiCall = (req, res) => {
+  //   app.models
+  //     // You may have to do this:
+  //     // .predict(Clarifai.FACE_DETECT_MODEL, req.body.input)
+  //     .predict('c0c0ac362b03416da06ab3fa36fb58e3', req.body.input)
+  //     .then(data => {
+  //       res.json(data);
+  //     })
+  //     .catch(err => res.status(400).json('unable to work with API'))
+  // }
 
   onRouteChange = (route) => {
     if (route === 'signout') {
