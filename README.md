@@ -1,3 +1,14 @@
+Check out the app and try it at [this link](https://face-detexon-app.herokuapp.com/)!
+
+
+
+Also try cloning this repo
+
+Run ```npm install```
+Run ```npm start```
+
+____ 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
