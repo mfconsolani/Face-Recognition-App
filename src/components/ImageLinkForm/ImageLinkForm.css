@@ -1,7 +1,7 @@
 .form {
     width: 700px;
     border-radius: 20px;
-    background: linear-gradient(to right,#C850C0 0%, #4158D0 100%);
-    box-shadow:  20px 20px 53px #468eb8, 
-                -20px -20px 53px #62c8ff;
+    background: linear-gradient(145deg,#C850C0, #4158D0);
+    box-shadow:  16px 16px 20px #4158D0, 
+                -16px -16px 20px #C850C0;
 }
