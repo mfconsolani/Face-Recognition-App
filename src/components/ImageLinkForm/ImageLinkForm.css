@@ -2,6 +2,6 @@
     width: 700px;
     border-radius: 20px;
     background: linear-gradient(145deg,#C850C0, #4158D0);
-    box-shadow:  16px 16px 20px #4158D0, 
-                -16px -16px 20px #C850C0;
+    box-shadow:  8px 8px 10px #4158D0, 
+                -8px -8px 10px #C850C0;
 }
