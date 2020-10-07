@@ -5,6 +5,7 @@ Check out the app and try it at [this link](https://face-detexon-app.herokuapp.c
 Also try cloning this repo
 
 Run ```npm install```
+
 Run ```npm start```
 
 ____ 
